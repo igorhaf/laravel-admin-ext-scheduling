@@ -9,10 +9,25 @@ class SchedulingServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(Scheduling $extension)
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-admin-scheduling');
+        if (! Scheduling::boot()) {
+            return ;
+        }
 
-        Scheduling::boot();
+        if ($views = $extension->views()) {
+            $this->loadViewsFrom($views, 'scheduling');
+        }
+
+        if ($this->app->runningInConsole() && $assets = $extension->assets()) {
+            $this->publishes(
+                [$assets => public_path('vendor/igorhaf/scheduling')],
+                'products'
+            );
+        }
+
+        $this->app->booted(function () {
+            Scheduling::routes(__DIR__.'/../routes/web.php');
+        });
     }
 }

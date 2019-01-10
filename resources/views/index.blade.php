@@ -37,11 +37,11 @@
             <tbody>
             <tr>
                 <th style="width: 10px">#</th>
-                <th>Task</th>
-                <th>Run at</th>
-                <th>Next run time</th>
-                <th>Description</th>
-                <th>Run</th>
+                <th>Tarefa</th>
+                <th>Ultima Execução</th>
+                <th>Proxima execução</th>
+                <th>Descrição</th>
+                <th>Executar</th>
             </tr>
             @foreach($events as $index => $event)
             <tr>
